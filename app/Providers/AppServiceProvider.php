@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if($auth_token = request()->cookie('auth_token')){
+            request()->headers->set('Authorization', 'Bearer ' . $auth_token);
+        }
     }
 }
