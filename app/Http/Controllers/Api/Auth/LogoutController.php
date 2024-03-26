@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class LogoutController extends Controller
 {
-    public function logout(){
+    public function logout()
+    {
         $user = auth()->user();
-
-
-        $user->tokens()->currentAccessToken()->delete();
 
         $response = [
             'data' => [],
@@ -19,6 +16,8 @@ class LogoutController extends Controller
             'success' => true,
         ];
 
-        return response()->json($response,200);
+        $user->currentAccessToken()->delete();
+
+        return response()->json($response, 200);
     }
 }
