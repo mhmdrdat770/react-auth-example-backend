@@ -23,6 +23,8 @@ class RegisterController extends Controller
         $token = $user->createToken('API_TOKEN')->plainTextToken;
 
         $cookie = cookie('auth_token', $token,1440);
+        $isLoginCookie = cookie('is_login',true,1440,null,null,null,false);
+
 
         $response = [
             'data' => [],
@@ -30,7 +32,7 @@ class RegisterController extends Controller
             'success' => true,
         ];
 
-        return response()->json($response,200)->withCookie($cookie);
+        return response()->json($response,200)->withCookie($cookie,$isLoginCookie)->withCookie($isLoginCookie);
 
 
     }

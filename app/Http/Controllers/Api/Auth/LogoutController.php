@@ -18,6 +18,9 @@ class LogoutController extends Controller
 
         $user->currentAccessToken()->delete();
 
-        return response()->json($response, 200);
+        $cookie = cookie()->forget('auth_token');
+        $isLoginCookie = cookie('is_login',false,1440,null,null,null,false);
+
+        return response()->json($response, 200)->withCookie($cookie)->withCookie($isLoginCookie);
     }
 }
